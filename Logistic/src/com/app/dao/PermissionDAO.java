@@ -2,6 +2,7 @@ package com.app.dao;
 
 import com.app.dto.PermissionDTO;
 import com.app.interfaces.CRUD;
+import com.app.service.PermissionDuplicate;
 import java.util.List;
 import java.sql.*;
 import java.util.ArrayList;
@@ -31,9 +32,15 @@ public class PermissionDAO implements CRUD<PermissionDTO> {
                 System.out.println("Erro ao tentar ao salvar os dados.");
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
 
-            System.out.println("Erro ao tentar salvar dados: " + e.getMessage());
+            if (e.getMessage().contains("Duplicate entry") && e.getMessage().contains("permissionName")) {
+
+                throw new PermissionDuplicate("Esta permissão já está cadastrada.");
+
+            } else {
+                throw new RuntimeException(e);
+            }
 
         }
     }

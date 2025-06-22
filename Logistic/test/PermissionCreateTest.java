@@ -13,5 +13,7 @@ public class PermissionCreateTest {
         PermissionDAO objDAO = new PermissionDAO();
         objDTO.setPermissionName(permissionName);
         objDAO.create(objDTO);
+        
+        new PermissionReadTest();
     }
 }
