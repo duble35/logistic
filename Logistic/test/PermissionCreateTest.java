@@ -5,6 +5,9 @@ import java.util.Scanner;
 
 public class PermissionCreateTest {
     public static void main(String[] args) {
+        
+        new PermissionReadTest();
+        
         Scanner in = new Scanner(System.in);
         String permissionName;
         System.out.print("Escreva o nome da permissão: ");

@@ -13,8 +13,6 @@ public class PermissionDAO implements CRUD<PermissionDTO> {
     private static ResultSet rs;
     private static Connection conn = new ConnectionDB().getDB();
 
-    ;
-
     @Override
     public void create(PermissionDTO obj) {
 
@@ -62,10 +60,6 @@ public class PermissionDAO implements CRUD<PermissionDTO> {
                 list.add(objDTO);
             }
 
-            rs.close();
-            pstmt.close();
-            conn.close();
-
         } catch (Exception e) {
 
             System.err.println("Erro ao tentar listar os dados: " + e.getMessage());
@@ -78,7 +72,26 @@ public class PermissionDAO implements CRUD<PermissionDTO> {
 
     @Override
     public void update(PermissionDTO obj) {
+        String queryUpdate = "UPDATE log_permission SET permissionName = ? WHERE permissionId = ?";
 
+        try {
+
+            pstmt = conn.prepareStatement(queryUpdate);
+            pstmt.setInt(2, obj.getPermissionId());
+            pstmt.setString(1, obj.getPermissionName());
+            int row = pstmt.executeUpdate();
+
+            if (row > 0) {
+                System.err.println("Sucesso ao atualizar os dados.");
+            } else {
+                System.err.println("Erro ao tentar atualizar os dados.");
+            }
+
+        } catch (SQLException e) {
+
+            System.err.println(e.getMessage());
+
+        }
     }
 
     @Override

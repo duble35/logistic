@@ -5,7 +5,7 @@ import java.util.List;
 
 public class PermissionReadTest {
 
-    public static void main(String[] args) {
+    public void read() {
         try {
 
             PermissionDAO objDAO = new PermissionDAO();
